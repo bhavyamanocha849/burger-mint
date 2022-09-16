@@ -5,13 +5,15 @@ import './MainMint.css'
 import CircularSlider from '@fseehawer/react-circular-slider';
 
 import burgerMintPartyNFT from '../BurgerMintParty.json'
-import { Button } from '@chakra-ui/button';
+
 
 const burgerMintPartyNFTAddress = "0xa2fa6e3Dad7Da390D6bC9978DF30fE0dBC9920a2"
 
 const MainMint=({accounts,setAccounts,setLoadingState})=>{
 
     const isConnected = Boolean(accounts[0]);
+    const metamaskUrl = "https://metamask.io/download/"
+    const [isMetamaskConnected,setIsMetamaskConnected] = useState(false) 
     const [mintedTokens,setMintedTokens] = useState(0);
     const [mintAmount,setMintAmount] = useState(1);
     async function handleMint(){
@@ -19,6 +21,16 @@ const MainMint=({accounts,setAccounts,setLoadingState})=>{
         if(window.ethereum){
 
             const provider = new ethers.providers.Web3Provider(window.ethereum);
+            // const currentNetwork = await provider.getNetwork();
+            // if(currentNetwork.chainId != 80001){
+                //show a comment to connect to the actual network
+                //find if there are any networks with the given chainId
+                //if not then add a newtork with that chain ID and add a chain ID
+
+                //Is it possible to fetch the tokens from a faucet
+            // }
+
+
             const signer = provider.getSigner();
             const contract = new ethers.Contract( 
                 burgerMintPartyNFTAddress,
@@ -33,8 +45,16 @@ const MainMint=({accounts,setAccounts,setLoadingState})=>{
                 console.log(response);
             }catch(err){
                 setLoadingState(true)
+                //not connected to right network
                 console.log("ERROR: ", err)
             }
+        }else{
+            //OR: Redirect to the metamask installer page
+            //etherscan not installed or connected
+
+            setLoadingState(true)
+            //set the chain Id and create an account with that network and chain ID
+
         }
         
         setLoadingState(false);
@@ -62,6 +82,7 @@ const MainMint=({accounts,setAccounts,setLoadingState})=>{
             const mintedTokenCount = parseInt(response._hex,16);
             setMintedTokens(mintedTokenCount);
         }catch(err){
+            //
             console.log("ERROR: ", err)
         }
     }} 
@@ -107,7 +128,7 @@ const MainMint=({accounts,setAccounts,setLoadingState})=>{
                     </div>
                     <div className="counter">
                         <div>
-                            <Button onClick={handleDecrement}>-</Button>
+                            <button onClick={handleDecrement}>-</button>
                         </div>
                         {
                             <div><p>{`${mintAmount}`}</p></div>
