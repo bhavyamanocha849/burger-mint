@@ -4,8 +4,8 @@ import MainMint from './components/MainMint'
 import { useState } from 'react';
 import Loading from "./components/Loader"
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import LoaderFull from './components/LoaderFull';
 
 function App() {
