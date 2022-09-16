@@ -26,4 +26,8 @@ npx hardhat run scripts/deploy.js --network mumbai
 npx hardhat verify --network mumbai 0xa2fa6e3Dad7Da390D6bC9978DF30fE0dBC9920a2 "{Contract Name}","{Contract Symbol}",{IPFS metadata url},"{IPFS metadata source for showing thumbnail untill NFT is revealed}"
 ```
 
+<<<<<<< HEAD
 Now you are good to go!🚀🚀🚀
+=======
+Now you are good to go!🚀🚀🚀
+>>>>>>> b999de30dddb1cf45f26b8fa53cae03bb7935a67
