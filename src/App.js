@@ -106,7 +106,6 @@ function App() {
     {
       <LoaderFull isLoading={chainChangeLoader} content='Chain Change'/>
     }
-    <ToastContainer />
       <div className="hatoda"></div>
       <div className="main-container">
         {
