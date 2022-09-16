@@ -9,13 +9,15 @@ import { Button } from '@chakra-ui/button';
 
 const burgerMintPartyNFTAddress = "0xa2fa6e3Dad7Da390D6bC9978DF30fE0dBC9920a2"
 
-const MainMint=({accounts,setAccounts})=>{
+const MainMint=({accounts,setAccounts,setLoadingState})=>{
 
     const isConnected = Boolean(accounts[0]);
     const [mintedTokens,setMintedTokens] = useState(0);
     const [mintAmount,setMintAmount] = useState(1);
     async function handleMint(){
+        setLoadingState(true)
         if(window.ethereum){
+
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
             const contract = new ethers.Contract( 
@@ -26,18 +28,22 @@ const MainMint=({accounts,setAccounts})=>{
 
             try{
                 const response = await contract.mint(BigNumber.from(mintAmount));
+                await response.wait()
+                await getMintCount();
                 console.log(response);
-
             }catch(err){
+                setLoadingState(true)
                 console.log("ERROR: ", err)
             }
         }
+        
+        setLoadingState(false);
     }
 
     useEffect(() => {
         console.log("RUNS")
         getMintCount()
-    },[])
+    },[mintAmount])
 
     const getMintCount = async () => {
         if(window.ethereum){
