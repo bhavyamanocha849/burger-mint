@@ -113,7 +113,7 @@ const MainMint=({accounts,setAccounts,setLoadingState})=>{
                             knobDraggable={false}
                             min={0}
                             max={100}
-                            knobSize={52}
+                            knobSize={0}
                             label="Minted Tokens"
                             labelColor="white"
                             knobColor="#1d1d1d"
